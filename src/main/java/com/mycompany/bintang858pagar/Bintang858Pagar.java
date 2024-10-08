@@ -18,12 +18,13 @@ public class Bintang858Pagar {
     }
     
     static void mainMenu(Pulsa pulsa) {
-        String text = "Jumlah Pulsa: Rp" + pulsa.getPulsa() + "\n" + """
+        String jumlahText = "Pulsa anda: Rp" + pulsa.getPulsa() + "\n";
+        String text = """
                       Menu
                       1. Transfer Pulsa
                       2. Minta Pulsa
                       """;
-        String optInput = JOptionPane.showInputDialog(null, text, "*858# USSD Code", 3);
+        String optInput = JOptionPane.showInputDialog(null, (jumlahText + text), "*858# USSD Code", 3);
         try {
             NumberFormatException nfe = new NumberFormatException("Invalid input");
             while (true) {
@@ -39,7 +40,8 @@ public class Bintang858Pagar {
                 } else {
                     break;
                 }
-                optInput = JOptionPane.showInputDialog(null, text, "*858# USSD Code", 3);
+                jumlahText = "Pulsa anda: Rp" + pulsa.getPulsa() + "\n";
+                optInput = JOptionPane.showInputDialog(null, (jumlahText + text), "*858# USSD Code", 3);
             }
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(null, nfe, "ERROR", 0);
@@ -50,7 +52,8 @@ public class Bintang858Pagar {
         NumberFormatException nfe = new NumberFormatException("Invalid input");
         String telpText = "Input nomor telepon yang ingin anda transfer pulsanya";
         String telpInput = JOptionPane.showInputDialog(null, telpText, "Transfer Pulsa", 3);
-        if (telpInput != null && !telpInput.isBlank()) {
+        if (telpInput != null) {
+            Integer.parseInt(telpInput);
             String pulsaText = "Input jumlah pulsa yang ingin anda kirim ke " + telpInput;
             String pulsaInput = JOptionPane.showInputDialog(null, pulsaText, "Transfer Pulsa", 3);
             if (pulsaInput != null && pulsaInput.charAt(0) != '-') {
@@ -73,8 +76,6 @@ public class Bintang858Pagar {
             } else if (pulsaInput != null && pulsaInput.charAt(0) == '-') {
                 throw nfe;
             }
-        } else if (telpInput != null && telpInput.isBlank()) {
-            throw nfe;
         }
     }
     
